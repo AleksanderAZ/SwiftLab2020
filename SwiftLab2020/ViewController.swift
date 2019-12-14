@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let presenter = Presenter()
+    var presenter: PresenterProtocol?
     
     @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var leftImageView: UIImageView!
@@ -21,12 +21,24 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        self.presenter = Presenter(view: self)
     }
     
     @IBAction func clickDealButton(_ sender: UIButton) {
-        leftImageView.image = UIImage(named: presenter.getNameImage())
-        rightImageView.image = UIImage(named: presenter.getNameImage())
+        presenter?.updateGame()
     }
 }
 
+extension ViewController:  ViewControllerProtocol {
+    func update(leftImage: String, rightImage: String) {
+        guard let presenter = self.presenter else { return }
+        let scoreLeft = presenter.getScore(for: .player)
+        let scoreRight = presenter.getScore(for: .cpu)
+        DispatchQueue.main.async {
+            self.leftImageView.image = UIImage(named: leftImage)
+            self.rightImageView.image = UIImage(named: rightImage)
+            self.leftScoreLabel.text = scoreLeft
+            self.rightScoreLabel.text = scoreRight
+        }
+    }
+}

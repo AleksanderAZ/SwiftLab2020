@@ -8,12 +8,46 @@
 
 import Foundation
 
+enum Players {
+    case player
+    case cpu
+}
 
 class Presenter: PresenterProtocol {
+    weak private var viewGame: ViewControllerProtocol?
+    private var scorePlayer: Int
+    private var scoreCPU: Int
     
-    func getNameImage() -> String {
-      let number = Int.random(in: 2...14)
-      let nameImage = "card\(number)"
-        return nameImage
+    init(view: ViewControllerProtocol) {
+        self.viewGame = view
+        self.scorePlayer = 0
+        self.scoreCPU = 0
     }
+    
+    func updateGame() {
+        let numberImagePlayer = Int.random(in: 2...14)
+        let numberImageCPU = Int.random(in: 2...14)
+        if (numberImagePlayer > numberImageCPU) {
+            scorePlayer += 1
+        }
+        if (numberImagePlayer < numberImageCPU) {
+            scoreCPU += 1
+        }
+        let leftImage = "card\(numberImagePlayer)"
+        let rightImage = "card\(numberImageCPU)"
+        viewGame?.update(leftImage: leftImage, rightImage: rightImage)
+    }
+    
+    func getScore(for player: Players) -> String {
+        var score: Int
+        switch player {
+        case .player:
+            score = self.scorePlayer
+            break
+        case .cpu:
+            score = self.scoreCPU
+            break
+        }
+        return  "\(score)"
+    }    
 }

@@ -8,6 +8,12 @@
 
 import Foundation
 
-protocol PresenterProtocol {
-    func getNameImage()->String
+protocol PresenterProtocol: class {
+    func getScore(for player: Players) -> String
+    func updateGame()
+}
+
+protocol ViewControllerProtocol: class {
+    var presenter: PresenterProtocol? {get set}
+    func update(leftImage: String, rightImage: String)
 }
