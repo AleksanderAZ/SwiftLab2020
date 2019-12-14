@@ -12,6 +12,8 @@
 		A42E06CF23A04F7900138462 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A42E06CD23A04F7900138462 /* Main.storyboard */; };
 		A42E06D123A04F7A00138462 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A42E06D023A04F7A00138462 /* Assets.xcassets */; };
 		A42E06D423A04F7A00138462 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A42E06D223A04F7A00138462 /* LaunchScreen.storyboard */; };
+		A4E462F823A4DADA00DF6276 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E462F723A4DADA00DF6276 /* Presenter.swift */; };
+		A4E462FA23A4DB2A00DF6276 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E462F923A4DB2A00DF6276 /* Protocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		A42E06D023A04F7A00138462 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A42E06D323A04F7A00138462 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A42E06D523A04F7A00138462 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A4E462F723A4DADA00DF6276 /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
+		A4E462F923A4DB2A00DF6276 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 				A42E06D023A04F7A00138462 /* Assets.xcassets */,
 				A42E06D223A04F7A00138462 /* LaunchScreen.storyboard */,
 				A42E06D523A04F7A00138462 /* Info.plist */,
+				A4E462F723A4DADA00DF6276 /* Presenter.swift */,
+				A4E462F923A4DB2A00DF6276 /* Protocol.swift */,
 			);
 			path = SwiftLab2020;
 			sourceTree = "<group>";
@@ -135,8 +141,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4E462F823A4DADA00DF6276 /* Presenter.swift in Sources */,
 				A42E06CC23A04F7900138462 /* ViewController.swift in Sources */,
 				A42E06CA23A04F7900138462 /* AppDelegate.swift in Sources */,
+				A4E462FA23A4DB2A00DF6276 /* Protocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

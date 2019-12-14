@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var countClick: Int = 0
+    let presenter = Presenter()
     
     @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var leftImageView: UIImageView!
@@ -19,18 +19,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var leftScoreLabel: UILabel!
     @IBOutlet weak var rightScoreLabel: UILabel!
     
-    @IBAction func clickDealButton(_ sender: UIButton) {
-        self.countClick += 1
-        print("Deal Click \(self.countClick) times")
-        
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-
-
+    
+    @IBAction func clickDealButton(_ sender: UIButton) {
+        leftImageView.image = UIImage(named: presenter.getNameImage())
+        rightImageView.image = UIImage(named: presenter.getNameImage())
+    }
 }
 
