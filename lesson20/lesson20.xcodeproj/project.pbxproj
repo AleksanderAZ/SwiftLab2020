@@ -66,11 +66,19 @@
 				A4BE8A0B23B397B500201817 /* Assets.xcassets */,
 				A4BE8A0D23B397B500201817 /* LaunchScreen.storyboard */,
 				A4BE8A1023B397B600201817 /* Info.plist */,
-				A4BE8A1623B39CD000201817 /* CardModel.swift */,
-				A4BE8A1823B39D1A00201817 /* Card.swift */,
+				A4BE8A1C23B3ADFA00201817 /* Model */,
 				A4BE8A1A23B3A15F00201817 /* CardCollectionViewCell.swift */,
 			);
 			path = lesson20;
+			sourceTree = "<group>";
+		};
+		A4BE8A1C23B3ADFA00201817 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A4BE8A1623B39CD000201817 /* CardModel.swift */,
+				A4BE8A1823B39D1A00201817 /* Card.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
