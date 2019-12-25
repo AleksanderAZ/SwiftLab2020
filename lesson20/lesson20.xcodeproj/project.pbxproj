@@ -12,6 +12,9 @@
 		A4BE8A0A23B397B200201817 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4BE8A0823B397B200201817 /* Main.storyboard */; };
 		A4BE8A0C23B397B500201817 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4BE8A0B23B397B500201817 /* Assets.xcassets */; };
 		A4BE8A0F23B397B500201817 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4BE8A0D23B397B500201817 /* LaunchScreen.storyboard */; };
+		A4BE8A1723B39CD000201817 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BE8A1623B39CD000201817 /* CardModel.swift */; };
+		A4BE8A1923B39D1A00201817 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BE8A1823B39D1A00201817 /* Card.swift */; };
+		A4BE8A1B23B3A15F00201817 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BE8A1A23B3A15F00201817 /* CardCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		A4BE8A0B23B397B500201817 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A4BE8A0E23B397B500201817 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A4BE8A1023B397B600201817 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A4BE8A1623B39CD000201817 /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
+		A4BE8A1823B39D1A00201817 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		A4BE8A1A23B3A15F00201817 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +66,9 @@
 				A4BE8A0B23B397B500201817 /* Assets.xcassets */,
 				A4BE8A0D23B397B500201817 /* LaunchScreen.storyboard */,
 				A4BE8A1023B397B600201817 /* Info.plist */,
+				A4BE8A1623B39CD000201817 /* CardModel.swift */,
+				A4BE8A1823B39D1A00201817 /* Card.swift */,
+				A4BE8A1A23B3A15F00201817 /* CardCollectionViewCell.swift */,
 			);
 			path = lesson20;
 			sourceTree = "<group>";
@@ -135,8 +144,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4BE8A1B23B3A15F00201817 /* CardCollectionViewCell.swift in Sources */,
 				A4BE8A0723B397B200201817 /* ViewController.swift in Sources */,
 				A4BE8A0523B397B200201817 /* AppDelegate.swift in Sources */,
+				A4BE8A1723B39CD000201817 /* CardModel.swift in Sources */,
+				A4BE8A1923B39D1A00201817 /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
