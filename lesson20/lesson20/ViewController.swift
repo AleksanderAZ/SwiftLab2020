@@ -12,6 +12,7 @@ class ViewController: UIViewController {
 
     var model = CarDModel()
     var cardArray = [Card]()
+    var firstFlippedCard: IndexPath?
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -47,17 +48,49 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         if let cell = collectionView.cellForItem(at: indexPath) as? CardCollectionViewCell {
             
             let card = cardArray[indexPath.row]
-            if card.isFlipped == false {
+            if card.isFlipped == false && card.isMatched ==  false {
                 cell.flip()
-                
+                card.isFlipped = true
+                if firstFlippedCard == nil {
+                    firstFlippedCard = indexPath
+                }
+                else {
+                    checkForMactch(indexPath)
+                }
             }
             else {
                 cell.flipback()
+                card.isFlipped = false
+                firstFlippedCard = nil
             }
-            card.isFlipped = !card.isFlipped
-            
             
         }
+    }
+    
+    
+    func checkForMactch(_ secondFlippCard: IndexPath) {
+        guard let firstFlippedCard = self.firstFlippedCard else { return }
+        let cardOneCell = collectionView.cellForItem(at: firstFlippedCard) as? CardCollectionViewCell
+        let cardTwoCell = collectionView.cellForItem(at: secondFlippCard) as? CardCollectionViewCell 
+        let cardOne = cardArray[firstFlippedCard.row]
+        let cardTwo = cardArray[secondFlippCard.row]
+                
+        if cardOne.imageName == cardTwo.imageName {
+            cardOne.isMatched = true
+            cardTwo.isMatched = true
+            cardOneCell?.remove()
+            cardTwoCell?.remove()
+        }
+        else {
+            cardOne.isFlipped = false
+            cardTwo.isFlipped = false
+            cardOneCell?.flipback()
+            cardTwoCell?.flipback()
+        }
+        if cardOneCell == nil {
+            collectionView.reloadItems(at: [firstFlippedCard])
+        }
+        self.firstFlippedCard = nil
     }
     
 }
