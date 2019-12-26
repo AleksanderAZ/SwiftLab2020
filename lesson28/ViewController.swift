@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  lesson20
+//  lesson28
 //
 //  Created by Z on 12/25/19.
 //  Copyright © 2019 Zyma. All rights reserved.
@@ -14,10 +14,9 @@ class ViewController: UIViewController {
     var cardArray = [Card]()
     var firstFlippedCard: IndexPath?
     var timer: Timer?
-    var millisecond: Float = 10000
+    var millisecond: Float = 40000
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
     @IBOutlet weak var timeLabel: UILabel!
     
     override func viewDidLoad() {
@@ -28,8 +27,13 @@ class ViewController: UIViewController {
         cardArray = model.getCards()
         timer = Timer.init(timeInterval: 0.001, target: self, selector: #selector(timerElapsed), userInfo: nil, repeats: true)
         RunLoop.main.add(timer!, forMode: .common)
+        RunLoop.main.add(timer!, forMode: .common)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        SoundManager.play(.shuffle)
+    }
     @objc func timerElapsed () {
         millisecond -= 1
         
@@ -75,6 +79,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
             let card = cardArray[indexPath.row]
             if card.isFlipped == false && card.isMatched ==  false {
                 cell.flip()
+                SoundManager.play(.flip)
                 card.isFlipped = true
                 if firstFlippedCard == nil {
                     firstFlippedCard = indexPath
@@ -101,6 +106,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         let cardTwo = cardArray[secondFlippCard.row]
                 
         if cardOne.imageName == cardTwo.imageName {
+            SoundManager.play(.match)
             cardOne.isMatched = true
             cardTwo.isMatched = true
             cardOneCell?.remove()
@@ -108,6 +114,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
             checkGameEnd()
         }
         else {
+            SoundManager.play(.nomatch)
             cardOne.isFlipped = false
             cardTwo.isFlipped = false
             cardOneCell?.flipback()
