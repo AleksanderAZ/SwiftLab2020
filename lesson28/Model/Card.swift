@@ -8,10 +8,23 @@
 
 import Foundation
 
+
+// MARK  - CardModel
 class Card {
     
-    var imageName: String = ""
-    var isFlipped: Bool = false
+    private var imageName: String = ""
     var isMatched: Bool = false
     
+    init(_ imageName: String) {
+        self.imageName = imageName
+    }
+    
+    func isCard(_ imageName: String)->Bool {
+        if(self.imageName == imageName) { return true }
+        return false
+    }
+    
+    func getCard()->String {
+        return self.imageName
+    }
 }

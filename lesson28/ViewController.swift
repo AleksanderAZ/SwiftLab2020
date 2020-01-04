@@ -10,7 +10,6 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var model = CarDModel()
     var cardArray = [Card]()
     var firstFlippedCard: IndexPath?
     var timer: Timer?
@@ -24,16 +23,21 @@ class ViewController: UIViewController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        cardArray = model.getCards()
-        timer = Timer.init(timeInterval: 0.001, target: self, selector: #selector(timerElapsed), userInfo: nil, repeats: true)
-        RunLoop.main.add(timer!, forMode: .common)
-        RunLoop.main.add(timer!, forMode: .common)
+        startGame()
     }
 
+    func startGame() {
+        cardArray = CardModel.getCards()
+        millisecond = 40000
+        timer = Timer.init(timeInterval: 0.001, target: self, selector: #selector(timerElapsed), userInfo: nil, repeats: true)
+        RunLoop.main.add(timer!, forMode: .common)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         SoundManager.play(.shuffle)
     }
+    
     @objc func timerElapsed () {
         millisecond -= 1
         
@@ -46,9 +50,7 @@ class ViewController: UIViewController {
             
             checkGameEnd()
         }
-        
     }
-
 }
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -62,75 +64,61 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardCollectionViewCell", for: indexPath)
         if let cell = cell as? CardCollectionViewCell {
             cell.setCard(cardArray[indexPath.row])
+            if let firstFlippedCard = self.firstFlippedCard {
+                if firstFlippedCard.row == indexPath.row {
+                    cell.flip()
+                }
+            }
         }
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        if millisecond <= 0 {
-            return
-        }
-        
-        if let cell = collectionView.cellForItem(at: indexPath) as? CardCollectionViewCell {
-        
-            
-            let card = cardArray[indexPath.row]
-            if card.isFlipped == false && card.isMatched ==  false {
-                cell.flip()
-                SoundManager.play(.flip)
-                card.isFlipped = true
-                if firstFlippedCard == nil {
-                    firstFlippedCard = indexPath
-                }
-                else {
-                    checkForMactch(indexPath)
-                }
-            }
-            else {
-                cell.flipback()
-                card.isFlipped = false
-                firstFlippedCard = nil
-            }
-            
-        }
+        guard millisecond > 0  else { return }
+        checkForMactch(indexPath)
     }
     
-    
-    func checkForMactch(_ secondFlippCard: IndexPath) {
-        guard let firstFlippedCard = self.firstFlippedCard else { return }
-        let cardOneCell = collectionView.cellForItem(at: firstFlippedCard) as? CardCollectionViewCell
-        let cardTwoCell = collectionView.cellForItem(at: secondFlippCard) as? CardCollectionViewCell 
-        let cardOne = cardArray[firstFlippedCard.row]
-        let cardTwo = cardArray[secondFlippCard.row]
+    func checkForMactch(_ cardIndexPath: IndexPath) {
+        let cardCell = collectionView.cellForItem(at: cardIndexPath) as? CardCollectionViewCell
+        let card = cardArray[cardIndexPath.row]
+        if !card.isMatched {
+            SoundManager.play(.flip)
+            cardCell?.flip()
+            if let firstFlippedCard = self.firstFlippedCard {
+                if firstFlippedCard.row != cardIndexPath.row {
+                    let cardFirstCell = collectionView.cellForItem(at: firstFlippedCard) as? CardCollectionViewCell
+                    let cardFirst = cardArray[firstFlippedCard.row]
+                    if(card.isCard(cardFirst.getCard())) {
+                        SoundManager.play(.match)
+                        card.isMatched = true
+                        cardCell?.remove()
+                        cardFirstCell?.remove()
+                        checkGameEnd()
+                    }
+                    else {
+                        SoundManager.play(.nomatch)
+                        cardCell?.flipback()
+                        cardFirstCell?.flipback()
+                    }
+                    if cardFirstCell == nil {
+                        collectionView.reloadItems(at: [firstFlippedCard])
+                    }
+                    self.firstFlippedCard = nil
+                }
                 
-        if cardOne.imageName == cardTwo.imageName {
-            SoundManager.play(.match)
-            cardOne.isMatched = true
-            cardTwo.isMatched = true
-            cardOneCell?.remove()
-            cardTwoCell?.remove()
-            checkGameEnd()
+            }
+            else
+            {
+                self.firstFlippedCard = cardIndexPath
+            }
         }
-        else {
-            SoundManager.play(.nomatch)
-            cardOne.isFlipped = false
-            cardTwo.isFlipped = false
-            cardOneCell?.flipback()
-            cardTwoCell?.flipback()
-        }
-        if cardOneCell == nil {
-            collectionView.reloadItems(at: [firstFlippedCard])
-        }
-        self.firstFlippedCard = nil
     }
    
     func checkGameEnd() {
         var isWon = true
         var title = ""
         var message = ""
-        
         
         for card in cardArray {
             if card.isMatched == false {
@@ -145,14 +133,16 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
             }
             title = "Won"
             message = "Won!!!"
+            showAlert(title: title, message: message)
         }
         else {
-            
-            title = "Game Over"
-            message = "lost!!!"
-            
+            if millisecond <= 0 {
+                title = "Game Over"
+                message = "lost!!!"
+                showAlert(title: title, message: message)
+            }
         }
-       showAlert(title: title, message: message)
+       
     }
     
     func showAlert (title: String, message: String) {

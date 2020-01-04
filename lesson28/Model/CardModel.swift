@@ -8,29 +8,20 @@
 
 import Foundation
 
-class CarDModel {
+// MARK: - CardModel
+
+class CardModel {
     
-    func getCards() -> [Card] {
-        
-        var generatedNumbersArray = [Int]()
-        
+    static func getCards(_ countPairCard: Int = 8) -> [Card] {
         var generatedCardsArray = [Card]()
         
-        while (generatedNumbersArray.count < 8) {
-            
+        for _ in 1...countPairCard  {
             let randomNumber = arc4random_uniform(13) + 1
-            
-            if generatedNumbersArray.contains(Int(randomNumber)) == false {
-                
-                generatedNumbersArray.append(Int(randomNumber))
-                let cardOne = Card()
-                cardOne.imageName = "card\(randomNumber)"
-                generatedCardsArray.append(cardOne)
-                let cardTwo = Card()
-                cardTwo.imageName = "card\(randomNumber)"
-                generatedCardsArray.append(cardTwo)
-            }
+            let card = Card("card\(randomNumber)")
+            generatedCardsArray.append(card)
+            generatedCardsArray.append(card)
         }
+        
         for i in 0..<generatedCardsArray.count {
             let randomNumber = arc4random_uniform(UInt32(generatedCardsArray.count))
             let temp = generatedCardsArray[i]

@@ -30,14 +30,7 @@ class CardCollectionViewCell: UICollectionViewCell {
             self.frontImageView.alpha = 1
         }
         
-        frontImageView.image = UIImage(named: card.imageName)
-        
-        if card.isFlipped {
-            UIView.transition(from: backImageView, to: frontImageView, duration: 0.3, options: [.transitionFlipFromLeft, .showHideTransitionViews], completion: nil)
-        }
-        else {
-            UIView.transition(from: frontImageView, to: backImageView, duration: 0.3, options: [.transitionFlipFromLeft, .showHideTransitionViews], completion: nil)
-        }
+        frontImageView.image = UIImage(named: card.getCard())
     }
     
     func flip() {
@@ -47,13 +40,13 @@ class CardCollectionViewCell: UICollectionViewCell {
     }
     
     func flipback() {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
             UIView.transition(from: self.frontImageView, to: self.backImageView, duration: 0.3, options: [.transitionFlipFromLeft, .showHideTransitionViews], completion: nil)
         }
     }
     
     func remove() {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
             self.backImageView.alpha = 0
             UIView.animate(withDuration: 0.3, delay: 0.5, options: .curveEaseOut, animations: {
                 self.frontImageView.alpha = 0
