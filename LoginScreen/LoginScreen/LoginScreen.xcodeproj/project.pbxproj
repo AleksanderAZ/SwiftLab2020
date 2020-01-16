@@ -69,6 +69,13 @@
 			path = AppServise;
 			sourceTree = "<group>";
 		};
+		A4326CFF23D0A74900035329 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		A43C6B8523CF189600C188BB = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +95,7 @@
 		A43C6B9023CF189600C188BB /* LoginScreen */ = {
 			isa = PBXGroup;
 			children = (
+				A4326CFF23D0A74900035329 /* Model */,
 				A4326CFE23D04DDC00035329 /* AppServise */,
 				A4326CF123D04D9300035329 /* LoginScreen */,
 				A43C6B9D23CF189A00C188BB /* Info.plist */,

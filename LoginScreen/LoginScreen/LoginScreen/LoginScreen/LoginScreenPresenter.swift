@@ -16,10 +16,96 @@ class LoginScreenPresenter: LoginScreenPresenterProtocol {
     var interactor: LoginScreenInteractorProtocol?
     private let router: LoginScreenWireframeProtocol
 
+    var flagChechLogin: Bool
+    var flagChechPassword: Bool
+    
     init(interface: LoginScreenViewProtocol, interactor: LoginScreenInteractorProtocol?, router: LoginScreenWireframeProtocol) {
         self.view = interface
         self.interactor = interactor
         self.router = router
+        
+        flagChechLogin = false
+        flagChechPassword = false
     }
 
+    func checkLogin(login: String) {
+        flagChechLogin = false
+        let count = login.count
+
+        guard (count > 4 && count < 26 ) else {
+            view?.switchOffLoginButton()
+            return
+        }
+        
+        guard login.contains("@") else {
+            view?.switchOffLoginButton()
+            return
+        }
+        
+        let special_characters = " \"'()+,-/:;<=>?[\\]_`{|}~"
+        for char in special_characters {
+            if login.contains(char) {
+                view?.switchOffLoginButton()
+                return
+            }
+        }
+        
+        var loginChar = Array(login)
+        var index = loginChar.lastIndex(of: ".")
+        guard index != nil else {
+            view?.switchOffLoginButton()
+            return
+        }
+        
+        while (index != nil) {
+            guard (index! < loginChar.count - 2) else {
+                view?.switchOffLoginButton()
+                return
+            }
+            loginChar.removeLast(loginChar.count-index!)
+            index = loginChar.lastIndex(of: ".")
+        }
+        
+        flagChechLogin = true
+        checkLoginButton()
+    }
+    
+    func checkPassword(password: String) {
+        
+        flagChechPassword = false
+        let count = password.count
+        guard (count > 4 && count < 21 ) else {
+            view?.switchOffLoginButton()
+            return
+        }
+        
+        let numbers = "0123456789"
+        let lower_case = "abcdefghijklmnopqrstuvwxyz"
+        let upper_case = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        let special_characters = "!@#$%^&*()-+"
+        let checkingStrings = [numbers, lower_case, upper_case, special_characters]
+        
+        for check in checkingStrings {
+            var checkFlag = false
+            for char in check {
+                if password.contains(char) {
+                    checkFlag = true
+                    break
+                }
+            }
+            guard (checkFlag) else {
+                view?.switchOffLoginButton()
+                return
+            }
+        }
+        
+        flagChechPassword = true
+        checkLoginButton()
+    }
+    
+    func checkLoginButton() {
+        if (flagChechLogin && flagChechPassword) {
+            view?.switchOnLoginButton()
+        }
+    }
 }

@@ -11,7 +11,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginScreenViewController" customModule="LoginScreen" customModuleProvider="target">
             <connections>
+                <outlet property="containerKeyboard" destination="MUU-bd-cdf" id="na0-ol-Jmq"/>
+                <outlet property="containerLogoView" destination="d0r-3w-vEb" id="rTK-nj-U6k"/>
+                <outlet property="containerView" destination="Uro-31-LjW" id="eEX-Pw-LXL"/>
+                <outlet property="keyboardContainerViewHeightConstrain" destination="Q3U-lf-2hZ" id="Qe4-JU-b33"/>
                 <outlet property="linkButton" destination="Qnv-DJ-tep" id="oyz-aa-z3n"/>
+                <outlet property="linkStackView" destination="cdM-90-Lkw" id="h6W-zu-UgD"/>
                 <outlet property="loginButton" destination="8dM-xc-3JF" id="PsP-ji-lf9"/>
                 <outlet property="loginTextFild" destination="Pzi-lF-x84" id="dr1-o6-mnt"/>
                 <outlet property="logoLabel" destination="SYy-S0-4WQ" id="36Q-dw-ye1"/>
@@ -28,13 +33,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uro-31-LjW">
-                    <rect key="frame" x="37.5" y="8" width="300" height="602"/>
+                    <rect key="frame" x="37.5" y="8" width="300" height="609"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d0r-3w-vEb" userLabel="Logo">
-                            <rect key="frame" x="0.0" y="0.0" width="300" height="302"/>
+                            <rect key="frame" x="0.0" y="0.0" width="300" height="306.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🔏" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYy-S0-4WQ">
-                                    <rect key="frame" x="96" y="91.5" width="108" height="119.5"/>
+                                    <rect key="frame" x="96" y="93.5" width="108" height="119.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="100"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -47,9 +52,9 @@
                             </constraints>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="cdM-90-Lkw">
-                            <rect key="frame" x="0.0" y="302" width="300" height="118"/>
+                            <rect key="frame" x="0.0" y="306.5" width="300" height="118"/>
                             <subviews>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pzi-lF-x84">
+                                <textField opaque="NO" contentMode="scaleToFill" restorationIdentifier="login" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pzi-lF-x84">
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="Beh-py-zYX"/>
@@ -59,15 +64,21 @@
                                     <textInputTraits key="textInputTraits"/>
                                     <connections>
                                         <action selector="changedLoginTextField:" destination="-1" eventType="editingChanged" id="FnI-M9-Gte"/>
+                                        <action selector="editingDidEndTextField:" destination="-1" eventType="editingDidEndOnExit" id="3Fg-Ki-dix"/>
+                                        <action selector="editingDidEndTextField:" destination="-1" eventType="editingDidEnd" id="BLd-De-3gL"/>
+                                        <action selector="editingDidEndTextField:" destination="-1" eventType="primaryActionTriggered" id="SP5-9M-mNC"/>
                                     </connections>
                                 </textField>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hzQ-eF-eEC">
+                                <textField opaque="NO" contentMode="scaleToFill" restorationIdentifier="password" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hzQ-eF-eEC">
                                     <rect key="frame" x="0.0" y="44" width="300" height="30"/>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                     <textInputTraits key="textInputTraits"/>
                                     <connections>
                                         <action selector="changedPasswordTextField:" destination="-1" eventType="editingChanged" id="p0O-xC-p8W"/>
+                                        <action selector="editingDidEndTextField:" destination="-1" eventType="editingDidEnd" id="44f-7f-9PK"/>
+                                        <action selector="editingDidEndTextField:" destination="-1" eventType="editingDidEndOnExit" id="CL3-jI-tgA"/>
+                                        <action selector="editingDidEndTextField:" destination="-1" eventType="primaryActionTriggered" id="Ea3-yA-LHp"/>
                                     </connections>
                                 </textField>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8dM-xc-3JF">
@@ -99,6 +110,13 @@
                         <constraint firstItem="d0r-3w-vEb" firstAttribute="leading" secondItem="Uro-31-LjW" secondAttribute="leading" id="upR-kM-OOZ"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MUU-bd-cdf">
+                    <rect key="frame" x="37.5" y="617" width="300" height="1"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Q3U-lf-2hZ"/>
+                    </constraints>
+                </view>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jc1-yl-sH4" userLabel="Link">
                     <rect key="frame" x="68.5" y="618" width="238" height="41"/>
                     <subviews>
@@ -125,15 +143,17 @@
                 <constraint firstItem="Uro-31-LjW" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="BuY-zP-6mQ"/>
                 <constraint firstItem="SQr-Ys-uwU" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Ehr-3k-sUV"/>
                 <constraint firstAttribute="trailing" secondItem="SQr-Ys-uwU" secondAttribute="trailing" id="GlY-5d-76J"/>
+                <constraint firstItem="MUU-bd-cdf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="IRm-tW-E2E"/>
                 <constraint firstAttribute="bottom" secondItem="jc1-yl-sH4" secondAttribute="bottom" constant="8" id="IS3-Hh-ndm"/>
                 <constraint firstAttribute="bottom" secondItem="SQr-Ys-uwU" secondAttribute="bottom" id="N56-Wd-ysO"/>
+                <constraint firstItem="jc1-yl-sH4" firstAttribute="top" secondItem="MUU-bd-cdf" secondAttribute="bottom" id="OWN-O6-xV9"/>
                 <constraint firstItem="Uro-31-LjW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="Oqe-Dd-Wc7"/>
+                <constraint firstItem="MUU-bd-cdf" firstAttribute="top" secondItem="Uro-31-LjW" secondAttribute="bottom" id="k8j-8x-y9y"/>
                 <constraint firstItem="SQr-Ys-uwU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="nLs-ap-F7r"/>
                 <constraint firstItem="jc1-yl-sH4" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="pjt-Uf-MGh"/>
-                <constraint firstItem="jc1-yl-sH4" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Uro-31-LjW" secondAttribute="bottom" constant="8" id="vZQ-W3-Ica"/>
-                <constraint firstItem="jc1-yl-sH4" firstAttribute="top" secondItem="Uro-31-LjW" secondAttribute="bottom" constant="8" id="yYS-yZ-uq9"/>
+                <constraint firstItem="MUU-bd-cdf" firstAttribute="width" secondItem="Uro-31-LjW" secondAttribute="width" id="vdx-BB-UjW"/>
             </constraints>
-            <point key="canvasLocation" x="133.125" y="122.53521126760563"/>
+            <point key="canvasLocation" x="132" y="121.88905547226388"/>
         </view>
     </objects>
     <resources>

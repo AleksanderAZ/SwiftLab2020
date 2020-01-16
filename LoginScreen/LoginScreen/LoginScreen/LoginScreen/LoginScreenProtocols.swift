@@ -16,7 +16,8 @@ protocol LoginScreenWireframeProtocol: class {
 }
 //MARK: Presenter -
 protocol LoginScreenPresenterProtocol: class {
-
+    func checkPassword(password: String)
+    func checkLogin(login: String)
 }
 
 //MARK: Interactor -
@@ -27,6 +28,9 @@ protocol LoginScreenInteractorProtocol: class {
 
 //MARK: View -
 protocol LoginScreenViewProtocol: class {
-
-  var presenter: LoginScreenPresenterProtocol?  { get set }
+    
+    var presenter: LoginScreenPresenterProtocol?  { get set }
+    
+    func switchOffLoginButton()
+    func switchOnLoginButton()
 }

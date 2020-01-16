@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window = UIWindow(frame:UIScreen.main.bounds)
         
-        let loginScreen = LoginScreenRouter.createModule()
+        let loginScreen = LoginScreenRouter.createModule(title: "Login Screen")
         let navigationController = UINavigationController(rootViewController: loginScreen)
         
         

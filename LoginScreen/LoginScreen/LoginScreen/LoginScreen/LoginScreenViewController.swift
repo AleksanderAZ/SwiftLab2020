@@ -13,68 +13,49 @@ import UIKit
 class LoginScreenViewController: UIViewController, LoginScreenViewProtocol {
 
 	var presenter: LoginScreenPresenterProtocol?
-
+    let restorationIdentifierPassword = "password"
+    let restorationIdentifierLogin = "login"
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var containerLogoView: UIView!
+    @IBOutlet weak var containerKeyboard: UIView!
+    @IBOutlet weak var keyboardContainerViewHeightConstrain: NSLayoutConstraint!
+    @IBOutlet weak var linkStackView: UIStackView!
     @IBOutlet weak var loginTextFild: UITextField!
     @IBOutlet weak var passwordTextFild: UITextField!
     @IBOutlet weak var logoLabel: UILabel!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var linkButton: UIButton!
-    var flagChechLogin = false
-    var flagChechPassword = false
+
     var passwordText: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Login Screen"
-        
         registerForKeyboardNotifications()
         
         self.loginButton.isEnabled = false
         self.loginButton.alpha = 0.5
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        super.viewWillDisappear(animated)
-    }
-    
-    func registerForKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    func removeForKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self,, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    func keyboardWillShow(notification: Notification) {
         
+        loginTextFild.delegate = self
+        passwordTextFild.delegate = self
+        passwordTextFild.restorationIdentifier = restorationIdentifierPassword
+        loginTextFild.restorationIdentifier = restorationIdentifierLogin
     }
     
-    func keyboardWillHide() {
-        
+    @IBAction func editingDidEndTextField(_ sender: UITextField) {
+        sender.resignFirstResponder()
     }
     
     @IBAction func changedLoginTextField(_ sender: UITextField) {
-        
         guard let login = sender.text else { return }
-        checkLogin(login: login)
+        presenter?.checkLogin(login: login)
     }
     
     @IBAction func changedPasswordTextField(_ sender: UITextField) {
-        
         guard let password = sender.text else { return }
-        
-         guard password.count > 0 else { return }
-         guard let lastChar = password.last else { return }
-        if (lastChar == "●") {
+        guard password.count > 0 else { return }
+        guard let lastChar = password.last else { return }
+        if (lastChar == "●" || passwordText.count != password.count - 1) {
             passwordText.removeAll()
             sender.text = ""
         }
@@ -85,90 +66,15 @@ class LoginScreenViewController: UIViewController, LoginScreenViewProtocol {
             passwordShow.append("●")
             sender.text = passwordShow
         }
-        checkPassword(password: passwordText)
+        presenter?.checkPassword(password: passwordText)
     }
     
     @IBAction func clickLoginButton(_ sender: UIButton) {
-        
+        loginTextFild.resignFirstResponder()
+        passwordTextFild.resignFirstResponder()
     }
     
     @IBAction func clickLinkButton(_ sender: UIButton) {
-        
-    }
-    
-    func checkLogin(login: String) {
-        flagChechLogin = false
-        let count = login.count
-        guard (count > 4 && count < 26 ) else {
-            switchOffLoginButton()
-            return
-        }
-
-        guard login.contains("@") else {
-            switchOffLoginButton()
-            return
-        }
-        
-        
-        let special_characters = " \"'()+,-/:;<=>?[\\]_`{|}~"
-        for char in special_characters {
-            if login.contains(char) {
-                switchOffLoginButton()
-                return
-            }
-        }
-       
-        var loginChar = Array(login)
-        var index = loginChar.lastIndex(of: ".")
-        guard index != nil else {
-            switchOffLoginButton()
-            return
-        }
-        
-        while (index != nil) {
-            guard (index! < loginChar.count - 2) else {
-                switchOffLoginButton()
-                return
-            }
-            loginChar.removeLast(loginChar.count-index!)
-            index = loginChar.lastIndex(of: ".")
-        }
-        
-        flagChechLogin = true
-        switchOnLoginButton()
-    }
-    
-    func checkPassword(password: String) {
-        
-        flagChechPassword = false
-        let count = password.count
-        guard (count > 4 && count < 21 ) else {
-            switchOffLoginButton()
-            return
-        }
-        
-        let numbers = "0123456789"
-        let lower_case = "abcdefghijklmnopqrstuvwxyz"
-        let upper_case = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        let special_characters = "!@#$%^&*()-+"
-        let checkingStrings = [numbers, lower_case, upper_case, special_characters]
-        
-        for check in checkingStrings {
-            var checkFlag = false
-            for char in check {
-                if password.contains(char) {
-                    checkFlag = true
-                    break
-                }
-            }
-            guard (checkFlag) else {
-                switchOffLoginButton()
-                return
-            }
-        }
-        
-        flagChechPassword = true
-        switchOnLoginButton()
     }
     
     func switchOffLoginButton() {
@@ -176,18 +82,51 @@ class LoginScreenViewController: UIViewController, LoginScreenViewProtocol {
             self.loginButton.isEnabled = false
             self.loginButton.alpha = 0.5
         }
-        
     }
     
     func switchOnLoginButton() {
-        
-        if (flagChechLogin && flagChechPassword) {
-            
-            DispatchQueue.main.async {
-                self.loginButton.isEnabled = true
-                self.loginButton.alpha = 1
-            }
+        DispatchQueue.main.async {
+            self.loginButton.isEnabled = true
+            self.loginButton.alpha = 1
         }
     }
 
+    deinit {
+        removeForKeyboardNotifications()
+    }
+}
+
+extension LoginScreenViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        if (textField.restorationIdentifier == "password") {
+            changedPasswordTextField(textField)
+        }
+        else {
+            changedLoginTextField(textField)
+        }
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func registerForKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func removeForKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        guard let userinfo = notification.userInfo else {return}
+        guard let keyboadSize = (userinfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        keyboardContainerViewHeightConstrain.constant = keyboadSize.height - linkStackView.frame.size.height - 8 + loginTextFild.frame.size.height
+    }
+    
+    @objc func keyboardWillHide() {
+        keyboardContainerViewHeightConstrain.constant = 0
+    }
 }
