@@ -7,17 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A4326CF823D04DCE00035329 /* LoginScreenInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4326CF223D04DCE00035329 /* LoginScreenInteractor.swift */; };
+		A4326CF923D04DCE00035329 /* LoginScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4326CF323D04DCE00035329 /* LoginScreenPresenter.swift */; };
+		A4326CFA23D04DCE00035329 /* LoginScreenProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4326CF423D04DCE00035329 /* LoginScreenProtocols.swift */; };
+		A4326CFB23D04DCE00035329 /* LoginScreenRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4326CF523D04DCE00035329 /* LoginScreenRouter.swift */; };
+		A4326CFC23D04DCE00035329 /* LoginScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4326CF623D04DCE00035329 /* LoginScreenViewController.swift */; };
+		A4326CFD23D04DCE00035329 /* LoginScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4326CF723D04DCE00035329 /* LoginScreenViewController.xib */; };
 		A43C6B9223CF189600C188BB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43C6B9123CF189600C188BB /* AppDelegate.swift */; };
-		A43C6B9423CF189600C188BB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43C6B9323CF189600C188BB /* ViewController.swift */; };
 		A43C6B9723CF189600C188BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A43C6B9523CF189600C188BB /* Main.storyboard */; };
 		A43C6B9923CF189A00C188BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A43C6B9823CF189A00C188BB /* Assets.xcassets */; };
 		A43C6B9C23CF189A00C188BB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A43C6B9A23CF189A00C188BB /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A4326CF223D04DCE00035329 /* LoginScreenInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenInteractor.swift; sourceTree = "<group>"; };
+		A4326CF323D04DCE00035329 /* LoginScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenPresenter.swift; sourceTree = "<group>"; };
+		A4326CF423D04DCE00035329 /* LoginScreenProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenProtocols.swift; sourceTree = "<group>"; };
+		A4326CF523D04DCE00035329 /* LoginScreenRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenRouter.swift; sourceTree = "<group>"; };
+		A4326CF623D04DCE00035329 /* LoginScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenViewController.swift; sourceTree = "<group>"; };
+		A4326CF723D04DCE00035329 /* LoginScreenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginScreenViewController.xib; sourceTree = "<group>"; };
 		A43C6B8E23CF189600C188BB /* LoginScreen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoginScreen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A43C6B9123CF189600C188BB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A43C6B9323CF189600C188BB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A43C6B9623CF189600C188BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A43C6B9823CF189A00C188BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A43C6B9B23CF189A00C188BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -35,6 +45,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A4326CF123D04D9300035329 /* LoginScreen */ = {
+			isa = PBXGroup;
+			children = (
+				A4326CF223D04DCE00035329 /* LoginScreenInteractor.swift */,
+				A4326CF323D04DCE00035329 /* LoginScreenPresenter.swift */,
+				A4326CF423D04DCE00035329 /* LoginScreenProtocols.swift */,
+				A4326CF523D04DCE00035329 /* LoginScreenRouter.swift */,
+				A4326CF623D04DCE00035329 /* LoginScreenViewController.swift */,
+				A4326CF723D04DCE00035329 /* LoginScreenViewController.xib */,
+			);
+			path = LoginScreen;
+			sourceTree = "<group>";
+		};
+		A4326CFE23D04DDC00035329 /* AppServise */ = {
+			isa = PBXGroup;
+			children = (
+				A43C6B9123CF189600C188BB /* AppDelegate.swift */,
+				A43C6B9823CF189A00C188BB /* Assets.xcassets */,
+				A43C6B9523CF189600C188BB /* Main.storyboard */,
+				A43C6B9A23CF189A00C188BB /* LaunchScreen.storyboard */,
+			);
+			path = AppServise;
+			sourceTree = "<group>";
+		};
 		A43C6B8523CF189600C188BB = {
 			isa = PBXGroup;
 			children = (
@@ -54,11 +88,8 @@
 		A43C6B9023CF189600C188BB /* LoginScreen */ = {
 			isa = PBXGroup;
 			children = (
-				A43C6B9123CF189600C188BB /* AppDelegate.swift */,
-				A43C6B9323CF189600C188BB /* ViewController.swift */,
-				A43C6B9523CF189600C188BB /* Main.storyboard */,
-				A43C6B9823CF189A00C188BB /* Assets.xcassets */,
-				A43C6B9A23CF189A00C188BB /* LaunchScreen.storyboard */,
+				A4326CFE23D04DDC00035329 /* AppServise */,
+				A4326CF123D04D9300035329 /* LoginScreen */,
 				A43C6B9D23CF189A00C188BB /* Info.plist */,
 			);
 			path = LoginScreen;
@@ -124,6 +155,7 @@
 			files = (
 				A43C6B9C23CF189A00C188BB /* LaunchScreen.storyboard in Resources */,
 				A43C6B9923CF189A00C188BB /* Assets.xcassets in Resources */,
+				A4326CFD23D04DCE00035329 /* LoginScreenViewController.xib in Resources */,
 				A43C6B9723CF189600C188BB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -135,7 +167,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A43C6B9423CF189600C188BB /* ViewController.swift in Sources */,
+				A4326CFB23D04DCE00035329 /* LoginScreenRouter.swift in Sources */,
+				A4326CFC23D04DCE00035329 /* LoginScreenViewController.swift in Sources */,
+				A4326CFA23D04DCE00035329 /* LoginScreenProtocols.swift in Sources */,
+				A4326CF823D04DCE00035329 /* LoginScreenInteractor.swift in Sources */,
+				A4326CF923D04DCE00035329 /* LoginScreenPresenter.swift in Sources */,
 				A43C6B9223CF189600C188BB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
